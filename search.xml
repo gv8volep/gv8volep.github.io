@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2023/07/27/hello-world/"/>
+      <url>/2023/07/27/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>欢迎来到我的博客！本博客基于Hexo搭建，访问<a href="https://hexo.io/%E6%90%AD%E5%BB%BA%E5%90%8C%E6%AC%BE%E7%BD%91%E7%AB%99^^%E3%80%82%E4%BB%A5%E4%B8%8B%E7%AE%80%E5%8D%95%E5%86%99%E4%B8%80%E4%B8%8B%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E3%80%82">https://hexo.io/搭建同款网站^^。以下简单写一下搭建过程。</a></p><h2 id="一、安装Hexo"><a href="#一、安装Hexo" class="headerlink" title="一、安装Hexo"></a>一、安装Hexo</h2><h3 id="1、下载Node-js"><a href="#1、下载Node-js" class="headerlink" title="1、下载Node.js"></a>1、下载Node.js</h3><p>点击<a href="https://nodejs.cn/download/">这里</a> ，根据自己系统下载即可。</p><h3 id="2、下载Git"><a href="#2、下载Git" class="headerlink" title="2、下载Git"></a>2、下载Git</h3><p>[这是链接]<a href="https://git-scm.com/download">https://git-scm.com/download</a> ，下载时无脑下一步。<br>顺便下一个能编辑.yml文件的编辑器(notepad++,vscode)</p><h3 id="3、下载Hexo"><a href="#3、下载Hexo" class="headerlink" title="3、下载Hexo"></a>3、下载Hexo</h3><p>进入Git Bash，依次输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
