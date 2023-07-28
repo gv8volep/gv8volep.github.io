@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>RE:从零开始的Python学习笔记</title>
+      <link href="/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<p>这里是一个萌新的 Python 学习笔记，在这里，我将从头开始梳理 Python 语法结构与代码。</p><h1 id="Python语法特点"><a href="#Python语法特点" class="headerlink" title="Python语法特点"></a>Python语法特点</h1><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>不同于C语言，Python编程具有强烈的 <mark class="hl-label blue">面向对象</mark> 特性，于class中体现其性质。</p><h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h2><p>Python是一门非常注重 <mark class="hl-label blue">缩进</mark> 的语言，任何语句必须严格按照逻辑缩进，否则出现错误提示。</p><h2 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h2><p>学习任何计算机语言，一定要养成 <mark class="hl-label green">注释</mark> 的好习惯，不单单为了他人的阅读性，更利于自己检查代码。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在python中，使用井号进行单行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">使用三个连续的单引号</span></span><br><span class="line"><span class="string">或双引号进行多行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>相比于Microsoft的Visual Studio Code，更推荐Pycharm进行Python项目的开发。</p><h1 id="初识Python-简单的Python语句"><a href="#初识Python-简单的Python语句" class="headerlink" title="初识Python: 简单的Python语句"></a>初识Python: 简单的Python语句</h1><h2 id="输入-输出-变量"><a href="#输入-输出-变量" class="headerlink" title="输入&amp;输出&amp;变量"></a>输入&amp;输出&amp;变量</h2><p>Python中，输入与输出的代码分别是input与print</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;输出内容&quot;</span>)</span><br><span class="line">a = <span class="built_in">input</span>(<span class="string">&quot;对用户的提示&quot;</span>) <span class="comment">#将用户输入内容，存放于变量a中。</span></span><br></pre></td></tr></table></figure><p>在上面代码的书写中，我们用到了变量a来存放输入内容。<br>在python中，变量的使用是不需要提前声明的，所以可以直接使用。</p><mark class="hl-label green">提示</mark> 命名变量时一定要使变量名称有鲜明特点，方便阅读；且Python支持中文变量名(不建议使用)<p>另外，要注意变量的名字不可与Python中的保留字重名。具体请见下图：</p><p><img src="https://pic.imgdb.cn/item/64c3786d1ddac507cc33bd12.png" alt="Python的33个保留字"></p><h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="数字型"><a href="#数字型" class="headerlink" title="数字型"></a>数字型</h3><h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><p>整数依据进制不同，主要分为十进制、二进制、十六进制、八进制等。<br>我们最熟悉的莫过于十进制整数。Python中表示十进制的数，只需要输入其所有位数即可。</p><mark class="hl-label red">注意</mark> 不可以0开头表示十进制整数。<p>八进制整数每位由0~7组成，逢8进1。<br>Python中八进制必须以0o或0O开头。<br>二进制与十六进制同理，不过在表示十六进制数的时候，前面必须加上0x或0X。</p><p>Python中用”int”将数据转换为整数型，且符合“向下取整”原则。如下所示。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="number">3.99</span>)</span><br><span class="line">   <span class="number">3</span></span><br></pre></td></tr></table></figure><h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><p>浮点数由整数部分与小数部分组成，主要用于表示过小的数字。</p><p>Python中用”float”将数据转换为浮点型。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">float</span>(<span class="number">2</span>)</span><br><span class="line">   <span class="number">2.0</span></span><br></pre></td></tr></table></figure><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>顾名思义，字符串是字符的整体。<br>在python中，可以使用’’、””、’’’’’’表示字符串。其中、’’’’’’可以分多行表示。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&#x27;你好世界&#x27;</span></span><br><span class="line">b=<span class="string">&quot;你好世界&quot;</span></span><br><span class="line">c=<span class="string">&#x27;&#x27;&#x27;你好，</span></span><br><span class="line"><span class="string">世界！&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%s\n%s\n%s&quot;</span> % (a,b,c))</span><br></pre></td></tr></table></figure><p>输出:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">你好世界</span><br><span class="line">你好世界</span><br><span class="line">你好，世界！</span><br></pre></td></tr></table></figure><p>我们使用str将数据转换为字符串。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">str</span>(<span class="number">123456</span>)</span><br><span class="line">   <span class="string">&quot;123456&quot;</span></span><br></pre></td></tr></table></figure><h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p>布尔型是表示真或假的数据类型。分别用True和False来表示真与假。<br>我们用int将布尔值转换为整数型。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">True</span>)</span><br><span class="line">   <span class="number">1</span></span><br><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">False</span>)</span><br><span class="line">   <span class="number">0</span></span><br></pre></td></tr></table></figure><p>开摆了，鸽~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 笔记 </tag>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World - Hexo搭建个人博客网站教程</title>
       <link href="/2023/07/27/hello-world/"/>
       <url>/2023/07/27/hello-world/</url>
@@ -20,9 +47,11 @@
       
         <tags>
             
+            <tag> 笔记 </tag>
+            
             <tag> 教程 </tag>
             
-            <tag> 笔记 </tag>
+            <tag> Hexo </tag>
             
         </tags>
       
