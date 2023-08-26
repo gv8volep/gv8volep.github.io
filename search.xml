@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【萌新】用Python制作的单词背诵程序</title>
+    <url>/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<p>最近心血来潮制作了一个关于单词背诵的程序，本文将从构思到代码逐步解读思路。（纯萌新）</p>
+<h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><p>程序可以分为三个结构：主UI界面，背单词界面，读取词库、收藏夹等功能程序。</p>
+<h2 id="主UI界面"><a href="#主UI界面" class="headerlink" title="主UI界面"></a>主UI界面</h2><p>本程序两个UI都使用Python的<em>tkinter库。</em></p>
+<p>主UI有以下互动选项：</p>
+<ul>
+<li>开始</li>
+<li>收藏夹</li>
+<li>历史、进度、选择词库(饼)</li>
+</ul>
+<h2 id="背单词界面"><a href="#背单词界面" class="headerlink" title="背单词界面"></a>背单词界面</h2><p>背单词界面实现了以下功能</p>
+<ul>
+<li>已经记住（刷新）</li>
+<li>展示中文</li>
+<li>加入收藏夹</li>
+</ul>
+<h2 id="功能程序"><a href="#功能程序" class="headerlink" title="功能程序"></a>功能程序</h2><ul>
+<li>读取词库</li>
+<li>文件交互</li>
+</ul>
+<h1 id="代码解读"><a href="#代码解读" class="headerlink" title="代码解读"></a>代码解读</h1><h2 id="读取词库"><a href="#读取词库" class="headerlink" title="读取词库"></a>读取词库</h2><p>首先，本程序所支持的词库格式为.xlsx文件，要与Excel文件进行交互，便用到了，Python的 <em>openpyxl</em> 库。</p>
+<p>要先在cmd或powershell中进行下载。</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure>
+
+<h3 id="按照格式整理词库"><a href="#按照格式整理词库" class="headerlink" title="按照格式整理词库"></a>按照格式整理词库</h3><p><img src="https://pic.imgdb.cn/item/64d0d4e11ddac507cc73fe1a.png" alt="标准格式"></p>
+<p>如图所示，即A列为外语单词，B列为汉语语义；且由于选择词库还在饼，词库文件名必须为词库.xlsx，工作表名必须为 <em>Sheet1。</em></p>
+<p>在网络中获取一个外语词库格式可能非常混乱，而通常词库单词多，人工排版极为麻烦，我在这里用到了office Excel的分列功能。</p>
+<p><img src="https://pic.imgdb.cn/item/64d0d6651ddac507cc776d86.png" alt="分列"></p>
+<p>分列功能有<em>分割符号</em>和<em>固定宽度</em>两个方式，一般推荐分割符号，毕竟每个单词长短不同，所选的符号可以是原有的分号或者方括号、大括号、斜杠等原有的、具有代表性的符号。</p>
+<h3 id="Python文件读取、处理词库"><a href="#Python文件读取、处理词库" class="headerlink" title="Python文件读取、处理词库"></a>Python文件读取、处理词库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ ==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> openpyxl</span><br><span class="line">    workbook = openpyxl.load_workbook(<span class="string">&quot;词库.xlsx&quot;</span>) <span class="comment">#导入excel</span></span><br><span class="line">    worksheet = workbook[<span class="string">&#x27;Sheet1&#x27;</span>] <span class="comment">#选择工作表</span></span><br><span class="line">    xl_A = [] <span class="comment">#存储A列数据的列表</span></span><br><span class="line">    xl_B = [] <span class="comment">#存储B列数据的列表</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">1</span>, max_col=<span class="number">1</span>): <span class="comment">#把A列数据存到列表中，与row相关为行，col为列</span></span><br><span class="line">        xl_A.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> a])</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">2</span>, max_col=<span class="number">2</span>): <span class="comment">#把B列数据存到列表中</span></span><br><span class="line">        xl_B.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> b])</span><br></pre></td></tr></table></figure>
+
+<p>此段代码用openpyxl库，实现了确定文档路径、工作表，并遍历行列，将单词存储于xl_A列表中，将汉语意思存储于xl_B中。</p>
+<p>本来在构思中打算用字典存储数据，但考虑到相同单词对应的汉语下标相同，所以舍弃这一想法。</p>
+<h3 id="使用Tkinter制作程序UI"><a href="#使用Tkinter制作程序UI" class="headerlink" title="使用Tkinter制作程序UI"></a>使用Tkinter制作程序UI</h3><p>本程序采用最简单的pyUI框架（</p>
+]]></content>
+      <categories>
+        <category>程序</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RE:从零开始的Python学习笔记</title>
     <url>/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>这里是一个萌新的 Python 学习笔记，在这里，我将从头开始梳理 Python 语法结构与代码。</p>
@@ -54,52 +98,8 @@
         <category>笔记</category>
       </categories>
       <tags>
+        <tag>Python</tag>
         <tag>笔记</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【萌新】用Python制作的单词背诵程序</title>
-    <url>/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/</url>
-    <content><![CDATA[<p>最近心血来潮制作了一个关于单词背诵的程序，本文将从构思到代码逐步解读思路。（纯萌新）</p>
-<h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><p>程序可以分为三个结构：主UI界面，背单词界面，读取词库、收藏夹等功能程序。</p>
-<h2 id="主UI界面"><a href="#主UI界面" class="headerlink" title="主UI界面"></a>主UI界面</h2><p>本程序两个UI都使用Python的<em>tkinter库。</em></p>
-<p>主UI有以下互动选项：</p>
-<ul>
-<li>开始</li>
-<li>收藏夹</li>
-<li>历史、进度、选择词库(饼)</li>
-</ul>
-<h2 id="背单词界面"><a href="#背单词界面" class="headerlink" title="背单词界面"></a>背单词界面</h2><p>背单词界面实现了以下功能</p>
-<ul>
-<li>已经记住（刷新）</li>
-<li>展示中文</li>
-<li>加入收藏夹</li>
-</ul>
-<h2 id="功能程序"><a href="#功能程序" class="headerlink" title="功能程序"></a>功能程序</h2><ul>
-<li>读取词库</li>
-<li>文件交互</li>
-</ul>
-<h1 id="代码解读"><a href="#代码解读" class="headerlink" title="代码解读"></a>代码解读</h1><h2 id="读取词库"><a href="#读取词库" class="headerlink" title="读取词库"></a>读取词库</h2><p>首先，本程序所支持的词库格式为.xlsx文件，要与Excel文件进行交互，便用到了，Python的 <em>openpyxl</em> 库。</p>
-<p>要先在cmd或powershell中进行下载。</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure>
-
-<h3 id="按照格式整理词库"><a href="#按照格式整理词库" class="headerlink" title="按照格式整理词库"></a>按照格式整理词库</h3><p><img src="https://pic.imgdb.cn/item/64d0d4e11ddac507cc73fe1a.png" alt="标准格式"></p>
-<p>如图所示，即A列为外语单词，B列为汉语语义；且由于选择词库还在饼，词库文件名必须为词库.xlsx，工作表名必须为 <em>Sheet1。</em></p>
-<p>在网络中获取一个外语词库格式可能非常混乱，而通常词库单词多，人工排版极为麻烦，我在这里用到了office Excel的分列功能。</p>
-<p><img src="https://pic.imgdb.cn/item/64d0d6651ddac507cc776d86.png" alt="分列"></p>
-<p>分列功能有<em>分割符号</em>和<em>固定宽度</em>两个方式，一般推荐分割符号，毕竟每个单词长短不同，所选的符号可以是原有的分号或者方括号、大括号、斜杠等原有的、具有代表性的符号。</p>
-<h3 id="Python文件读取、处理词库"><a href="#Python文件读取、处理词库" class="headerlink" title="Python文件读取、处理词库"></a>Python文件读取、处理词库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ ==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> openpyxl</span><br><span class="line">    workbook = openpyxl.load_workbook(<span class="string">&quot;词库.xlsx&quot;</span>) <span class="comment">#导入excel</span></span><br><span class="line">    worksheet = workbook[<span class="string">&#x27;Sheet1&#x27;</span>] <span class="comment">#选择工作表</span></span><br><span class="line">    xl_A = [] <span class="comment">#存储A列数据的列表</span></span><br><span class="line">    xl_B = [] <span class="comment">#存储B列数据的列表</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">1</span>, max_col=<span class="number">1</span>): <span class="comment">#把A列数据存到列表中，与row相关为行，col为列</span></span><br><span class="line">        xl_A.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> a])</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">2</span>, max_col=<span class="number">2</span>): <span class="comment">#把B列数据存到列表中</span></span><br><span class="line">        xl_B.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> b])</span><br></pre></td></tr></table></figure>
-
-<p>此段代码用openpyxl库，实现了确定文档路径、工作表，并遍历行列，将单词存储于xl_A列表中，将汉语意思存储于xl_B中。</p>
-<p>本来在构思中打算用字典存储数据，但考虑到相同单词对应的汉语下标相同，所以舍弃这一想法。</p>
-<h3 id="使用Tkinter制作程序UI"><a href="#使用Tkinter制作程序UI" class="headerlink" title="使用Tkinter制作程序UI"></a>使用Tkinter制作程序UI</h3><p>本程序采用最简单的pyUI框架（</p>
-]]></content>
-      <categories>
-        <category>程序</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
