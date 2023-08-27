@@ -1,88 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>【萌新】用Python制作的单词背诵程序</title>
-      <link href="/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/"/>
-      <url>/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/</url>
-      
-        <content type="html"><![CDATA[<p>最近心血来潮制作了一个关于单词背诵的程序，本文将从构思到代码逐步解读思路。（纯萌新）</p><h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><p>程序可以分为三个结构：主UI界面，背单词界面，读取词库、收藏夹等功能程序。</p><h2 id="主UI界面"><a href="#主UI界面" class="headerlink" title="主UI界面"></a>主UI界面</h2><p>本程序两个UI都使用Python的<em>tkinter库。</em></p><p>主UI有以下互动选项：</p><ul><li>开始</li><li>收藏夹</li><li>历史、进度、选择词库(饼)</li></ul><h2 id="背单词界面"><a href="#背单词界面" class="headerlink" title="背单词界面"></a>背单词界面</h2><p>背单词界面实现了以下功能</p><ul><li>已经记住（刷新）</li><li>展示中文</li><li>加入收藏夹</li></ul><h2 id="功能程序"><a href="#功能程序" class="headerlink" title="功能程序"></a>功能程序</h2><ul><li>读取词库</li><li>文件交互</li></ul><h1 id="代码解读"><a href="#代码解读" class="headerlink" title="代码解读"></a>代码解读</h1><h2 id="读取词库"><a href="#读取词库" class="headerlink" title="读取词库"></a>读取词库</h2><p>首先，本程序所支持的词库格式为.xlsx文件，要与Excel文件进行交互，便用到了，Python的 <em>openpyxl</em> 库。</p><p>要先在cmd或powershell中进行下载。</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure><h3 id="按照格式整理词库"><a href="#按照格式整理词库" class="headerlink" title="按照格式整理词库"></a>按照格式整理词库</h3><p><img src="https://pic.imgdb.cn/item/64d0d4e11ddac507cc73fe1a.png" alt="标准格式"></p><p>如图所示，即A列为外语单词，B列为汉语语义；且由于选择词库还在饼，词库文件名必须为词库.xlsx，工作表名必须为 <em>Sheet1。</em></p><p>在网络中获取一个外语词库格式可能非常混乱，而通常词库单词多，人工排版极为麻烦，我在这里用到了office Excel的分列功能。</p><p><img src="https://pic.imgdb.cn/item/64d0d6651ddac507cc776d86.png" alt="分列"></p><p>分列功能有<em>分割符号</em>和<em>固定宽度</em>两个方式，一般推荐分割符号，毕竟每个单词长短不同，所选的符号可以是原有的分号或者方括号、大括号、斜杠等原有的、具有代表性的符号。</p><h3 id="Python文件读取、处理词库"><a href="#Python文件读取、处理词库" class="headerlink" title="Python文件读取、处理词库"></a>Python文件读取、处理词库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ ==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> openpyxl</span><br><span class="line">    workbook = openpyxl.load_workbook(<span class="string">&quot;词库.xlsx&quot;</span>) <span class="comment">#导入excel</span></span><br><span class="line">    worksheet = workbook[<span class="string">&#x27;Sheet1&#x27;</span>] <span class="comment">#选择工作表</span></span><br><span class="line">    xl_A = [] <span class="comment">#存储A列数据的列表</span></span><br><span class="line">    xl_B = [] <span class="comment">#存储B列数据的列表</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">1</span>, max_col=<span class="number">1</span>): <span class="comment">#把A列数据存到列表中，与row相关为行，col为列</span></span><br><span class="line">        xl_A.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> a])</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">2</span>, max_col=<span class="number">2</span>): <span class="comment">#把B列数据存到列表中</span></span><br><span class="line">        xl_B.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> b])</span><br></pre></td></tr></table></figure><p>此段代码用openpyxl库，实现了确定文档路径、工作表，并遍历行列，将单词存储于xl_A列表中，将汉语意思存储于xl_B中。</p><p>本来在构思中打算用字典存储数据，但考虑到相同单词对应的汉语下标相同，所以舍弃这一想法。</p><h3 id="使用Tkinter制作程序UI"><a href="#使用Tkinter制作程序UI" class="headerlink" title="使用Tkinter制作程序UI"></a>使用Tkinter制作程序UI</h3><p>本程序采用最简单的pyUI框架（</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>RE:从零开始的Python学习笔记</title>
+    <url>/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>这里是一个萌新的 Python 学习笔记，在这里，我将从头开始梳理 Python 语法结构与代码。</p>
+<h1 id="Python语法特点"><a href="#Python语法特点" class="headerlink" title="Python语法特点"></a>Python语法特点</h1><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>不同于C语言，Python编程具有强烈的 <mark class="hl-label blue">面向对象</mark> 特性，于class中体现其性质。</p>
+<h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h2><p>Python是一门非常注重 <mark class="hl-label blue">缩进</mark> 的语言，任何语句必须严格按照逻辑缩进，否则出现错误提示。</p>
+<h2 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h2><p>学习任何计算机语言，一定要养成 <mark class="hl-label green">注释</mark> 的好习惯，不单单为了他人的阅读性，更利于自己检查代码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在python中，使用井号进行单行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">使用三个连续的单引号</span></span><br><span class="line"><span class="string">或双引号进行多行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>相比于Microsoft的Visual Studio Code，更推荐Pycharm进行Python项目的开发。</p>
+<h1 id="初识Python-简单的Python语句"><a href="#初识Python-简单的Python语句" class="headerlink" title="初识Python: 简单的Python语句"></a>初识Python: 简单的Python语句</h1><h2 id="输入-输出-变量"><a href="#输入-输出-变量" class="headerlink" title="输入&amp;输出&amp;变量"></a>输入&amp;输出&amp;变量</h2><p>Python中，输入与输出的代码分别是input与print</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;输出内容&quot;</span>)</span><br><span class="line">a = <span class="built_in">input</span>(<span class="string">&quot;对用户的提示&quot;</span>) <span class="comment">#将用户输入内容，存放于变量a中。</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面代码的书写中，我们用到了变量a来存放输入内容。</p>
+<p>在python中，变量的使用是不需要提前声明的，所以可以直接使用。</p>
+<mark class="hl-label green">提示</mark> 命名变量时一定要使变量名称有鲜明特点，方便阅读；且Python支持中文变量名(不建议使用)
+
+<p>另外，要注意变量的名字不可与Python中的保留字重名。具体请见下图：</p>
+<p><img src="https://pic.imgdb.cn/item/64c3786d1ddac507cc33bd12.png" alt="Python的33个保留字"></p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="数字型"><a href="#数字型" class="headerlink" title="数字型"></a>数字型</h3><h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><p>整数依据进制不同，主要分为十进制、二进制、十六进制、八进制等。</p>
+<p>我们最熟悉的莫过于十进制整数。Python中表示十进制的数，只需要输入其所有位数即可。</p>
+<mark class="hl-label red">注意</mark> 不可以0开头表示十进制整数。
+
+<p>八进制整数每位由0~7组成，逢8进1。</p>
+<p>Python中八进制必须以0o或0O开头。</p>
+<p>二进制与十六进制同理，不过在表示十六进制数的时候，前面必须加上0x或0X。</p>
+<p>Python中用”int”将数据转换为整数型，且符合“向下取整”原则。如下所示。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="number">3.99</span>)</span><br><span class="line">   <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><p>浮点数由整数部分与小数部分组成，主要用于表示过小的数字。</p>
+<p>Python中用”float”将数据转换为浮点型。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">float</span>(<span class="number">2</span>)</span><br><span class="line">   <span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>顾名思义，字符串是字符的整体。</p>
+<p>在python中，可以使用’’、””、’’’’’’表示字符串。其中、’’’’’’可以分多行表示。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&#x27;你好世界&#x27;</span></span><br><span class="line">b=<span class="string">&quot;你好世界&quot;</span></span><br><span class="line">c=<span class="string">&#x27;&#x27;&#x27;你好，</span></span><br><span class="line"><span class="string">世界！&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%s\n%s\n%s&quot;</span> % (a,b,c))</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">你好世界</span><br><span class="line">你好世界</span><br><span class="line">你好，世界！</span><br></pre></td></tr></table></figure>
+
+<p>我们使用str将数据转换为字符串。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">str</span>(<span class="number">123456</span>)</span><br><span class="line">   <span class="string">&quot;123456&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p>布尔型是表示真或假的数据类型。分别用True和False来表示真与假。</p>
+<p>我们用int将布尔值转换为整数型。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">True</span>)</span><br><span class="line">   <span class="number">1</span></span><br><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">False</span>)</span><br><span class="line">   <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>开摆了，鸽~</p>
+<p>以上写着玩。</p>
+]]></content>
       <categories>
-          
-          <category> 程序 </category>
-          
+        <category>笔记</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>RE:从零开始的Python学习笔记</title>
-      <link href="/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-      <url>/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<p>这里是一个萌新的 Python 学习笔记，在这里，我将从头开始梳理 Python 语法结构与代码。</p><h1 id="Python语法特点"><a href="#Python语法特点" class="headerlink" title="Python语法特点"></a>Python语法特点</h1><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>不同于C语言，Python编程具有强烈的 <mark class="hl-label blue">面向对象</mark> 特性，于class中体现其性质。</p><h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h2><p>Python是一门非常注重 <mark class="hl-label blue">缩进</mark> 的语言，任何语句必须严格按照逻辑缩进，否则出现错误提示。</p><h2 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h2><p>学习任何计算机语言，一定要养成 <mark class="hl-label green">注释</mark> 的好习惯，不单单为了他人的阅读性，更利于自己检查代码。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在python中，使用井号进行单行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">使用三个连续的单引号</span></span><br><span class="line"><span class="string">或双引号进行多行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>相比于Microsoft的Visual Studio Code，更推荐Pycharm进行Python项目的开发。</p><h1 id="初识Python-简单的Python语句"><a href="#初识Python-简单的Python语句" class="headerlink" title="初识Python: 简单的Python语句"></a>初识Python: 简单的Python语句</h1><h2 id="输入-输出-变量"><a href="#输入-输出-变量" class="headerlink" title="输入&amp;输出&amp;变量"></a>输入&amp;输出&amp;变量</h2><p>Python中，输入与输出的代码分别是input与print</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;输出内容&quot;</span>)</span><br><span class="line">a = <span class="built_in">input</span>(<span class="string">&quot;对用户的提示&quot;</span>) <span class="comment">#将用户输入内容，存放于变量a中。</span></span><br></pre></td></tr></table></figure><p>在上面代码的书写中，我们用到了变量a来存放输入内容。</p><p>在python中，变量的使用是不需要提前声明的，所以可以直接使用。</p><mark class="hl-label green">提示</mark> 命名变量时一定要使变量名称有鲜明特点，方便阅读；且Python支持中文变量名(不建议使用)<p>另外，要注意变量的名字不可与Python中的保留字重名。具体请见下图：</p><p><img src="https://pic.imgdb.cn/item/64c3786d1ddac507cc33bd12.png" alt="Python的33个保留字"></p><h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="数字型"><a href="#数字型" class="headerlink" title="数字型"></a>数字型</h3><h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><p>整数依据进制不同，主要分为十进制、二进制、十六进制、八进制等。</p><p>我们最熟悉的莫过于十进制整数。Python中表示十进制的数，只需要输入其所有位数即可。</p><mark class="hl-label red">注意</mark> 不可以0开头表示十进制整数。<p>八进制整数每位由0~7组成，逢8进1。</p><p>Python中八进制必须以0o或0O开头。</p><p>二进制与十六进制同理，不过在表示十六进制数的时候，前面必须加上0x或0X。</p><p>Python中用”int”将数据转换为整数型，且符合“向下取整”原则。如下所示。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="number">3.99</span>)</span><br><span class="line">   <span class="number">3</span></span><br></pre></td></tr></table></figure><h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><p>浮点数由整数部分与小数部分组成，主要用于表示过小的数字。</p><p>Python中用”float”将数据转换为浮点型。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">float</span>(<span class="number">2</span>)</span><br><span class="line">   <span class="number">2.0</span></span><br></pre></td></tr></table></figure><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>顾名思义，字符串是字符的整体。</p><p>在python中，可以使用’’、””、’’’’’’表示字符串。其中、’’’’’’可以分多行表示。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&#x27;你好世界&#x27;</span></span><br><span class="line">b=<span class="string">&quot;你好世界&quot;</span></span><br><span class="line">c=<span class="string">&#x27;&#x27;&#x27;你好，</span></span><br><span class="line"><span class="string">世界！&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%s\n%s\n%s&quot;</span> % (a,b,c))</span><br></pre></td></tr></table></figure><p>输出:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">你好世界</span><br><span class="line">你好世界</span><br><span class="line">你好，世界！</span><br></pre></td></tr></table></figure><p>我们使用str将数据转换为字符串。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">str</span>(<span class="number">123456</span>)</span><br><span class="line">   <span class="string">&quot;123456&quot;</span></span><br></pre></td></tr></table></figure><h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p>布尔型是表示真或假的数据类型。分别用True和False来表示真与假。</p><p>我们用int将布尔值转换为整数型。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">True</span>)</span><br><span class="line">   <span class="number">1</span></span><br><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">False</span>)</span><br><span class="line">   <span class="number">0</span></span><br></pre></td></tr></table></figure><p>开摆了，鸽~</p><p>以上写着玩。</p>]]></content>
-      
-      
+      <tags>
+        <tag>笔记</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【萌新】用Python制作的单词背诵程序</title>
+    <url>/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<p>最近心血来潮制作了一个关于单词背诵的程序，本文将从构思到代码逐步解读思路。（纯萌新）</p>
+<h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><p>程序可以分为三个结构：主UI界面，背单词界面，读取词库、收藏夹等功能程序。</p>
+<h2 id="主UI界面"><a href="#主UI界面" class="headerlink" title="主UI界面"></a>主UI界面</h2><p>本程序两个UI都使用Python的<em>tkinter库。</em></p>
+<p>主UI有以下互动选项：</p>
+<ul>
+<li>开始</li>
+<li>收藏夹</li>
+<li>历史、进度、选择词库(饼)</li>
+</ul>
+<h2 id="背单词界面"><a href="#背单词界面" class="headerlink" title="背单词界面"></a>背单词界面</h2><p>背单词界面实现了以下功能</p>
+<ul>
+<li>已经记住（刷新）</li>
+<li>展示中文</li>
+<li>加入收藏夹</li>
+</ul>
+<h2 id="功能程序"><a href="#功能程序" class="headerlink" title="功能程序"></a>功能程序</h2><ul>
+<li>读取词库</li>
+<li>文件交互</li>
+</ul>
+<h1 id="代码解读"><a href="#代码解读" class="headerlink" title="代码解读"></a>代码解读</h1><h2 id="读取词库"><a href="#读取词库" class="headerlink" title="读取词库"></a>读取词库</h2><p>首先，本程序所支持的词库格式为.xlsx文件，要与Excel文件进行交互，便用到了，Python的 <em>openpyxl</em> 库。</p>
+<p>要先在cmd或powershell中进行下载。</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure>
+
+<h3 id="按照格式整理词库"><a href="#按照格式整理词库" class="headerlink" title="按照格式整理词库"></a>按照格式整理词库</h3><p><img src="https://pic.imgdb.cn/item/64d0d4e11ddac507cc73fe1a.png" alt="标准格式"></p>
+<p>如图所示，即A列为外语单词，B列为汉语语义；且由于选择词库还在饼，词库文件名必须为词库.xlsx，工作表名必须为 <em>Sheet1。</em></p>
+<p>在网络中获取一个外语词库格式可能非常混乱，而通常词库单词多，人工排版极为麻烦，我在这里用到了office Excel的分列功能。</p>
+<p><img src="https://pic.imgdb.cn/item/64d0d6651ddac507cc776d86.png" alt="分列"></p>
+<p>分列功能有<em>分割符号</em>和<em>固定宽度</em>两个方式，一般推荐分割符号，毕竟每个单词长短不同，所选的符号可以是原有的分号或者方括号、大括号、斜杠等原有的、具有代表性的符号。</p>
+<h3 id="Python文件读取、处理词库"><a href="#Python文件读取、处理词库" class="headerlink" title="Python文件读取、处理词库"></a>Python文件读取、处理词库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ ==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> openpyxl</span><br><span class="line">    workbook = openpyxl.load_workbook(<span class="string">&quot;词库.xlsx&quot;</span>) <span class="comment">#导入excel</span></span><br><span class="line">    worksheet = workbook[<span class="string">&#x27;Sheet1&#x27;</span>] <span class="comment">#选择工作表</span></span><br><span class="line">    xl_A = [] <span class="comment">#存储A列数据的列表</span></span><br><span class="line">    xl_B = [] <span class="comment">#存储B列数据的列表</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">1</span>, max_col=<span class="number">1</span>): <span class="comment">#把A列数据存到列表中，与row相关为行，col为列</span></span><br><span class="line">        xl_A.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> a])</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">2</span>, max_col=<span class="number">2</span>): <span class="comment">#把B列数据存到列表中</span></span><br><span class="line">        xl_B.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> b])</span><br></pre></td></tr></table></figure>
+
+<p>此段代码用openpyxl库，实现了确定文档路径、工作表，并遍历行列，将单词存储于xl_A列表中，将汉语意思存储于xl_B中。</p>
+<p>本来在构思中打算用字典存储数据，但考虑到相同单词对应的汉语下标相同，所以舍弃这一想法。</p>
+<h3 id="使用Tkinter制作程序UI"><a href="#使用Tkinter制作程序UI" class="headerlink" title="使用Tkinter制作程序UI"></a>使用Tkinter制作程序UI</h3><p>本程序采用最简单的pyUI框架（</p>
+]]></content>
       <categories>
-          
-          <category> 笔记 </category>
-          
+        <category>程序</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 笔记 </tag>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World - Hexo搭建个人博客网站教程</title>
-      <link href="/2023/07/27/hello-world/"/>
-      <url>/2023/07/27/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>欢迎来到7Q的博客！本站基于Hexo框架搭建，访问 <a href="https://hexo.io/">https://hexo.io/</a> 搭建同款网站^^。以下简单写一下搭建过程。</p><h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><h2 id="下载Node-js"><a href="#下载Node-js" class="headerlink" title="下载Node.js"></a>下载Node.js</h2><p>点击<a href="https://nodejs.cn/download/">这里</a> ，根据自己系统下载即可。</p><h2 id="下载Git"><a href="#下载Git" class="headerlink" title="下载Git"></a>下载Git</h2><p><a href="https://git-scm.com/download">点我</a> 即可下载，下载时无脑下一步。</p><p>顺便下一个能编辑.yml文件的编辑器(如notepad++,vscode)</p><h2 id="下载Hexo"><a href="#下载Hexo" class="headerlink" title="下载Hexo"></a>下载Hexo</h2><p>进入Git Bash，依次输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure><h1 id="将网站部署至Github"><a href="#将网站部署至Github" class="headerlink" title="将网站部署至Github"></a>将网站部署至Github</h1><h2 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h2><p>首先注册一个Github账号。</p><p>然后在Git bash中输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的Github用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure><h2 id="生成-查看SSH密钥"><a href="#生成-查看SSH密钥" class="headerlink" title="生成&amp;查看SSH密钥"></a>生成&amp;查看SSH密钥</h2><p>输入以下内容：(过程中需要点击三次回车键)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub <span class="comment">#查看密钥</span></span><br></pre></td></tr></table></figure><h2 id="将网站上传至Github"><a href="#将网站上传至Github" class="headerlink" title="将网站上传至Github"></a>将网站上传至Github</h2><h3 id="上传SSH"><a href="#上传SSH" class="headerlink" title="上传SSH"></a>上传SSH</h3><p>进入Github，点击右上角你的头像，找到 <mark class="hl-label blue">Settings</mark> 。</p><p>在左侧找到 <mark class="hl-label blue">SSH and GPG keys</mark> 。</p><p>如下图所示填写key。</p><p><img src="https://pic.imgdb.cn/item/64c25ed71ddac507cc762ac3.png" alt="pic"></p><p>最后在git bash窗口中输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure><p>若出现”successfully”等字样，代表创建成功。</p><h3 id="创建一个库"><a href="#创建一个库" class="headerlink" title="创建一个库"></a>创建一个库</h3><p>再进入Github首页，点击 <mark class="hl-label green">New Repository</mark>  或者 <mark class="hl-label green">new</mark>  。</p><p><img src="https://pic.imgdb.cn/item/64c260711ddac507cc7a25b7.png" alt="pic"></p><p>按照上图创建一个库。</p><h3 id="上传与部署"><a href="#上传与部署" class="headerlink" title="上传与部署"></a>上传与部署</h3><p>在博客根目录的 <mark class="hl-label blue">_config.yml</mark>  文件中搜索 <mark class="hl-label blue">deploy</mark>  。</p><p>并输入：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure><p>最后在根目录git bash窗口中输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure><h1 id="验收成果"><a href="#验收成果" class="headerlink" title="验收成果"></a>验收成果</h1><p>进入 <mark class="hl-label blue">你的用户名.github.io</mark>  若进入网站则成功！</p><p>该过程可能需要几分钟，不久后刷新即可。</p><h1 id="附录-Hexo常用命令"><a href="#附录-Hexo常用命令" class="headerlink" title="附录 - Hexo常用命令"></a>附录 - Hexo常用命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo s  <span class="comment">#启动网站</span></span><br><span class="line">hexo g  <span class="comment">#生成网页</span></span><br><span class="line">hexo d  <span class="comment">#部署网站</span></span><br><span class="line">hexo clean  <span class="comment">#清除缓存</span></span><br><span class="line">hexo new page  <span class="comment">#新建网页</span></span><br></pre></td></tr></table></figure><p>更多内容请参考<a href="https://hexo.io/zh-cn/docs/index.html">Hexo官网文档</a>。</p>]]></content>
-      
-      
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World - Hexo搭建个人博客网站教程</title>
+    <url>/2023/07/27/hello-world/</url>
+    <content><![CDATA[<p>欢迎来到7Q的博客！本站基于Hexo框架搭建，访问 <a href="https://hexo.io/">https://hexo.io/</a> 搭建同款网站^^。以下简单写一下搭建过程。</p>
+<h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><h2 id="下载Node-js"><a href="#下载Node-js" class="headerlink" title="下载Node.js"></a>下载Node.js</h2><p>点击<a href="https://nodejs.cn/download/">这里</a> ，根据自己系统下载即可。</p>
+<h2 id="下载Git"><a href="#下载Git" class="headerlink" title="下载Git"></a>下载Git</h2><p><a href="https://git-scm.com/download">点我</a> 即可下载，下载时无脑下一步。</p>
+<p>顺便下一个能编辑.yml文件的编辑器(如notepad++,vscode)</p>
+<h2 id="下载Hexo"><a href="#下载Hexo" class="headerlink" title="下载Hexo"></a>下载Hexo</h2><p>进入Git Bash，依次输入:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h1 id="将网站部署至Github"><a href="#将网站部署至Github" class="headerlink" title="将网站部署至Github"></a>将网站部署至Github</h1><h2 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h2><p>首先注册一个Github账号。</p>
+<p>然后在Git bash中输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的Github用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="生成-查看SSH密钥"><a href="#生成-查看SSH密钥" class="headerlink" title="生成&amp;查看SSH密钥"></a>生成&amp;查看SSH密钥</h2><p>输入以下内容：(过程中需要点击三次回车键)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub <span class="comment">#查看密钥</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="将网站上传至Github"><a href="#将网站上传至Github" class="headerlink" title="将网站上传至Github"></a>将网站上传至Github</h2><h3 id="上传SSH"><a href="#上传SSH" class="headerlink" title="上传SSH"></a>上传SSH</h3><p>进入Github，点击右上角你的头像，找到 <mark class="hl-label blue">Settings</mark> 。</p>
+<p>在左侧找到 <mark class="hl-label blue">SSH and GPG keys</mark> 。</p>
+<p>如下图所示填写key。</p>
+<p><img src="https://pic.imgdb.cn/item/64c25ed71ddac507cc762ac3.png" alt="pic"></p>
+<p>最后在git bash窗口中输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>若出现”successfully”等字样，代表创建成功。</p>
+<h3 id="创建一个库"><a href="#创建一个库" class="headerlink" title="创建一个库"></a>创建一个库</h3><p>再进入Github首页，点击 <mark class="hl-label green">New Repository</mark>  或者 <mark class="hl-label green">new</mark>  。</p>
+<p><img src="https://pic.imgdb.cn/item/64c260711ddac507cc7a25b7.png" alt="pic"></p>
+<p>按照上图创建一个库。</p>
+<h3 id="上传与部署"><a href="#上传与部署" class="headerlink" title="上传与部署"></a>上传与部署</h3><p>在博客根目录的 <mark class="hl-label blue">_config.yml</mark>  文件中搜索 <mark class="hl-label blue">deploy</mark>  。</p>
+<p>并输入：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>最后在根目录git bash窗口中输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<h1 id="验收成果"><a href="#验收成果" class="headerlink" title="验收成果"></a>验收成果</h1><p>进入 <mark class="hl-label blue">你的用户名.github.io</mark>  若进入网站则成功！</p>
+<p>该过程可能需要几分钟，不久后刷新即可。</p>
+<h1 id="附录-Hexo常用命令"><a href="#附录-Hexo常用命令" class="headerlink" title="附录 - Hexo常用命令"></a>附录 - Hexo常用命令</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s  <span class="comment">#启动网站</span></span><br><span class="line">hexo g  <span class="comment">#生成网页</span></span><br><span class="line">hexo d  <span class="comment">#部署网站</span></span><br><span class="line">hexo clean  <span class="comment">#清除缓存</span></span><br><span class="line">hexo new page  <span class="comment">#新建网页</span></span><br></pre></td></tr></table></figure>
+
+<p>更多内容请参考<a href="https://hexo.io/zh-cn/docs/index.html">Hexo官网文档</a>。</p>
+]]></content>
       <categories>
-          
-          <category> 教程 </category>
-          
+        <category>教程</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 笔记 </tag>
-            
-            <tag> 教程 </tag>
-            
-            <tag> Hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>笔记</tag>
+        <tag>教程</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
 </search>
