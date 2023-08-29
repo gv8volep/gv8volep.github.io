@@ -1,313 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>Hello World - Hexo搭建个人博客网站教程</title>
-    <url>/2023/07/27/Hello%20World%20-%20Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p>欢迎来到7Q的博客！本站基于Hexo框架搭建，访问 <a href="https://hexo.io/">https://hexo.io/</a> 搭建同款网站^^。以下简单写一下搭建过程。</p>
-<h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><h2 id="下载Node-js"><a href="#下载Node-js" class="headerlink" title="下载Node.js"></a>下载Node.js</h2><p>点击<a href="https://nodejs.cn/download/">这里</a> ，根据自己系统下载即可。</p>
-<h2 id="下载Git"><a href="#下载Git" class="headerlink" title="下载Git"></a>下载Git</h2><p><a href="https://git-scm.com/download">点我</a> 即可下载，下载时无脑下一步。</p>
-<p>顺便下一个能编辑.yml文件的编辑器(如notepad++,vscode)</p>
-<h2 id="下载Hexo"><a href="#下载Hexo" class="headerlink" title="下载Hexo"></a>下载Hexo</h2><p>进入Git Bash，依次输入:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<h1 id="将网站部署至Github"><a href="#将网站部署至Github" class="headerlink" title="将网站部署至Github"></a>将网站部署至Github</h1><h2 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h2><p>首先注册一个Github账号。</p>
-<p>然后在Git bash中输入：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的Github用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-<h2 id="生成-amp-查看SSH密钥"><a href="#生成-amp-查看SSH密钥" class="headerlink" title="生成&amp;查看SSH密钥"></a>生成&amp;查看SSH密钥</h2><p>输入以下内容：(过程中需要点击三次回车键)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub <span class="comment">#查看密钥</span></span><br></pre></td></tr></table></figure>
-<h2 id="将网站上传至Github"><a href="#将网站上传至Github" class="headerlink" title="将网站上传至Github"></a>将网站上传至Github</h2><h3 id="上传SSH"><a href="#上传SSH" class="headerlink" title="上传SSH"></a>上传SSH</h3><p>进入Github，点击右上角你的头像，找到 <mark class="hl-label blue">Settings</mark> 。</p>
-<p>在左侧找到 <mark class="hl-label blue">SSH and GPG keys</mark> 。</p>
-<p>如下图所示填写key。</p>
-<p><img src="https://pic.imgdb.cn/item/64c25ed71ddac507cc762ac3.png" alt="pic"></p>
-<p>最后在git bash窗口中输入：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>若出现”successfully”等字样，代表创建成功。</p>
-<h3 id="创建一个库"><a href="#创建一个库" class="headerlink" title="创建一个库"></a>创建一个库</h3><p>再进入Github首页，点击 <mark class="hl-label green">New Repository</mark>  或者 <mark class="hl-label green">new</mark>  。</p>
-<p><img src="https://pic.imgdb.cn/item/64c260711ddac507cc7a25b7.png" alt="pic"></p>
-<p>按照上图创建一个库。</p>
-<h3 id="上传与部署"><a href="#上传与部署" class="headerlink" title="上传与部署"></a>上传与部署</h3><p>在博客根目录的 <mark class="hl-label blue">_config.yml</mark>  文件中搜索 <mark class="hl-label blue">deploy</mark>  。</p>
-<p>并输入：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<p>最后在根目录git bash窗口中输入：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<h1 id="验收成果"><a href="#验收成果" class="headerlink" title="验收成果"></a>验收成果</h1><p>进入 <mark class="hl-label blue">你的用户名.github.io</mark>  若进入网站则成功！</p>
-<p>该过程可能需要几分钟，不久后刷新即可。</p>
-<h1 id="附录-Hexo常用命令"><a href="#附录-Hexo常用命令" class="headerlink" title="附录 - Hexo常用命令"></a>附录 - Hexo常用命令</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s  <span class="comment">#启动网站</span></span><br><span class="line">hexo g  <span class="comment">#生成网页</span></span><br><span class="line">hexo d  <span class="comment">#部署网站</span></span><br><span class="line">hexo clean  <span class="comment">#清除缓存</span></span><br><span class="line">hexo new page  <span class="comment">#新建网页</span></span><br></pre></td></tr></table></figure>
-<p>更多内容请参考<a href="https://hexo.io/zh-cn/docs/index.html">Hexo官网文档</a>。</p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>小白的前端笔记HTML</title>
+      <link href="/2023/08/27/%E5%B0%8F%E7%99%BD%E7%9A%84%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+      <url>/2023/08/27/%E5%B0%8F%E7%99%BD%E7%9A%84%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="HTML简介"><a href="#HTML简介" class="headerlink" title="HTML简介"></a>HTML简介</h1><p>HTML 是<mark class="hl-label blue">超文本标记语言</mark> 。它不是编程语言，而是标记语言。Html用标记标签来描述网页。</p><p><em>超文本是一种<u>组织信息</u>的方式，它通过超级链接方法将文本中的文字、图表与其他信息媒体相<u>关联</u>。这些相互关联的信息媒体可能在同一文本中，也可能是其他文件，或是地理位置相距遥远的某台计算机上的文件。这种组织信息方式将分布在不同位置的信息资源用随机方式进行连接，为人们查找，检索信息提供方便。</em></p><h2 id="标记标签"><a href="#标记标签" class="headerlink" title="标记标签"></a>标记标签</h2><ul><li><p>HTML 标签由&lt;尖括号&gt;包围。</p></li><li><p>HTML 标签通常<u>成对出现</u>。</p></li><li><p>标签对中的第一个标签是<u>开始标签</u>，第二个标签是<u>结束标签</u>。</p></li><li><p>开始和结束标签也被称为开放标签和闭合标签。</p></li></ul><h2 id="HTML与网页"><a href="#HTML与网页" class="headerlink" title="HTML与网页"></a>HTML与网页</h2><p>.html文件即为一个网页。</p><ul><li><p>HTML 文档描述网页。</p></li><li><p>HTML 文档包含 HTML 标签和纯文本。</p></li><li><p>HTML 文档也被称为网页。</p></li></ul><p>Web 浏览器的作用是读取 HTML 文档，并以网页的形式显示出它们。浏览器不会显示 HTML 标签，而是使用标签来解释页面的内容。</p><h1 id="我的第一个HTML程序"><a href="#我的第一个HTML程序" class="headerlink" title="我的第一个HTML程序"></a>我的第一个HTML程序</h1><p>1、启动一个可以编辑HTML文件的编辑器，可以是notepad等等。</p><p>2、在编辑器中输入以下代码:</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p>其中，我们使用<!--内容-->来进行代码注释，在一些专业编辑器中，可以通过ctrl+/来快捷注释。</p><p>3、保存文件，在保存文件时，文件后缀既可以是.htm，也可以是.html。</p><p>4、运行文件，使用浏览器运行即可。</p><h1 id="HTML基本标签-标题、段落、链接、图像"><a href="#HTML基本标签-标题、段落、链接、图像" class="headerlink" title="HTML基本标签-标题、段落、链接、图像"></a>HTML基本标签-标题、段落、链接、图像</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>HTML的标题标签为&lt;h1&gt;&lt;/h1&gt;，其中的数字代表标题等级，最大为1级，最小为6级。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>一级标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>二级标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>三级标题<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure><ul><li>注意：HTML 的标题标签仅用于创建标题，切勿为加大字体而使用！ </li></ul><hr /><p>补充一句，在 HTML 中分割线标签为&lt;hr&gt;，上方的分割线即为效果。</p><p>使用方法：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>第一段话<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>第二段话<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h2><p>HTML的段落标签为&lt;p&gt;&lt;/p&gt;，前后标签中间直接写文字，不需要加引号。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><ul><li><p>注：浏览器会自动地在段落的前后添加空行。</p></li><li><p>提示：不要用&lt;p&gt;&lt;/p&gt;代替&lt;br /&gt;来空行。如果您希望在不产生一个新段落的情况下进行换行（新行），也使用&lt;br /&gt;标签。</p></li></ul><h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>HTML的链接标签为&lt;a href=””&gt;&lt;/a&gt;，href=后的引号中填写链接地址，两个标签中间的文字是链接文本，即显示在页面上的文字。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.baidu.com/&quot;</span>&gt;</span>百度官网<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>HTML的图片标签为&lt;img&gt;。图片名称、尺寸等通过属性来定义。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;图片地址&quot;</span> <span class="attr">width</span>=<span class="string">&quot;50&quot;</span> <span class="attr">height</span>=<span class="string">&quot;50&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure><h1 id="HTML元素"><a href="#HTML元素" class="headerlink" title="HTML元素"></a>HTML元素</h1><h2 id="HTML元素简介"><a href="#HTML元素简介" class="headerlink" title="HTML元素简介"></a>HTML元素简介</h2><p>HTML 文档是由 HTML 元素定义的。</p><p>HTML元素指的是从开始标签到结束标签之间所有的代码。</p><div class="table-container"><table><thead><tr><th>开始标签</th><th>元素内容</th><th>结束标签</th></tr></thead><tbody><tr><td>&lt;p&gt;</td><td>Hello</td><td>&lt;/p&gt;</td></tr><tr><td>&lt;a href = “www.baidu.com”&gt;</td><td>百度官网</td><td>&lt;/a&gt;</td></tr></tbody></table></div><ul><li>有些HTML元素可以具有空内容，大多数HTML元素可以具有属性。</li></ul><h2 id="HTML元素的嵌套"><a href="#HTML元素的嵌套" class="headerlink" title="HTML元素的嵌套"></a>HTML元素的嵌套</h2><p>大多数 HTML 元素可以嵌套（可以包含其他 HTML 元素）。</p><p>HTML 文档由嵌套的 HTML 元素构成。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="实例解释"><a href="#实例解释" class="headerlink" title="实例解释"></a>实例解释</h2><p>在上面的代码中，我们看到了html,body,p这三个元素。</p><h3 id="lt-p-gt-元素"><a href="#lt-p-gt-元素" class="headerlink" title="&lt;p&gt;元素"></a>&lt;p&gt;元素</h3><p>在之前写到过。</p><h3 id="lt-html-gt-元素"><a href="#lt-html-gt-元素" class="headerlink" title="&lt;html&gt;元素"></a>&lt;html&gt;元素</h3><p>&lt;html&gt;元素定义了整个 HTML 文档。</p><p>在上面的代码中&lt;html&gt;元素的内容是另一个 HTML 元素(&lt;body&gt;元素)。</p><h3 id="lt-body-gt-元素"><a href="#lt-body-gt-元素" class="headerlink" title="&lt;body&gt;元素"></a>&lt;body&gt;元素</h3><p>&lt;body&gt;元素定义了 HTML 文档的主体。</p><p>与之相对的&lt;head&gt;元素用于定义 HTML 文档的头部。</p><h2 id="空的HTML元素"><a href="#空的HTML元素" class="headerlink" title="空的HTML元素"></a>空的HTML元素</h2><p>没有内容的 HTML 元素被称为空元素。空元素是在开始标签中关闭的。</p><p>&lt;br&gt;就是没有关闭标签的空元素（&lt;br&gt;标签定义换行）。</p><p>在开始标签中添加斜杠，比如&lt;br /&gt;是关闭空元素的正确方法，HTML、XHTML 和 XML 都接受这种方式。</p><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul><li><p>建议在开始标签中加/来关闭空元素。</p></li><li><p>建议使用小写标签。</p></li><li><p>不要忘记结束标签。</p></li></ul><h1 id="HTML属性"><a href="#HTML属性" class="headerlink" title="HTML属性"></a>HTML属性</h1><p>HTML 标签可以具有属性，属性为 HTML 标签提供更多信息。</p><p>属性一般在开始标签中规定。</p><p>属性出现的形式为 name = “val”</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span> = <span class="string">&quot;center&quot;</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure><p>其中，我们为一级标题标签添加了 align 属性，用于规定内容位置。</p><p>提示：</p><ul><li><p>建议小写属性。</p></li><li><p>始终为属性值加引号。</p></li></ul><p>更多标签及其属性详见<a href = "https://www.w3school.com.cn/tags/index.asp" target = "_blank">此处</a>。</p><h1 id="HTML样式"><a href="#HTML样式" class="headerlink" title="HTML样式"></a>HTML样式</h1><h2 id="HTML的style属性"><a href="#HTML的style属性" class="headerlink" title="HTML的style属性"></a>HTML的style属性</h2><p>style 属性用于改变 HTML 元素的样式。</p><p>它提供了一种改变所有 HTML 元素的样式的通用方法。</p><p>通过 HTML 样式，能够通过使用 style 属性直接将样式添加到 HTML 元素，或者间接地在独立的样式表中（CSS 文件）进行定义。</p><h2 id="不建议使用的标签和属性"><a href="#不建议使用的标签和属性" class="headerlink" title="不建议使用的标签和属性"></a>不建议使用的标签和属性</h2><p>对于以下这些标签和属性，请使用样式代替。</p><div class="table-container"><table><thead><tr><th>标签</th><th>描述</th></tr></thead><tbody><tr><td>&lt;center&gt;</td><td>定义居中的内容</td></tr><tr><td>&lt;font&gt;和&lt;basefont&gt;</td><td>定义字体</td></tr><tr><td>&lt;s&gt;和&lt;strike&gt;</td><td>定义删除线文本</td></tr><tr><td>&lt;u&gt;</td><td>定义下划线文本</td></tr></tbody></table></div><div class="table-container"><table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>align</td><td>定义文本对齐方式</td></tr><tr><td>bgcolor</td><td>定义背景颜色</td></tr><tr><td>color</td><td>定义文本颜色</td></tr></tbody></table></div><h2 id="HTML样式实例"><a href="#HTML样式实例" class="headerlink" title="HTML样式实例"></a>HTML样式实例</h2><h3 id="背景颜色"><a href="#背景颜色" class="headerlink" title="背景颜色"></a>背景颜色</h3><p>background-color 属性为元素定义了背景颜色：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">&quot;background-color:yellow&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">style</span>=<span class="string">&quot;background-color:red&quot;</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;background-color:green&quot;</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p>改代码修改了body标签的样式，也就是整个页面的背景颜色。</p><h3 id="字体、颜色、尺寸"><a href="#字体、颜色、尺寸" class="headerlink" title="字体、颜色、尺寸"></a>字体、颜色、尺寸</h3><p>font-family、color 以及 font-size 属性分别定义元素中文本的字体系列、颜色和字体尺寸：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;font-family:verdana&quot;</span>&gt;</span>A heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;font-family:arial;color:red;font-size:20px;&quot;</span>&gt;</span>A paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="文本对齐"><a href="#文本对齐" class="headerlink" title="文本对齐"></a>文本对齐</h3><p>text-align 属性规定了元素中文本的水平对齐方式：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;text-align:center&quot;</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The heading above is aligned to the center of this page.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><h1 id="HTML格式化文本"><a href="#HTML格式化文本" class="headerlink" title="HTML格式化文本"></a>HTML格式化文本</h1><p>HTML 可定义很多供格式化输出的元素，比如粗体和斜体字。</p><p>文本格式化标签</p><div class="table-container"><table><thead><tr><th>标签</th><th>描述</th></tr></thead><tbody><tr><td>&lt;b&gt;</td><td>定义加粗文本</td></tr><tr><td>&lt;big&gt;</td><td>定义大号文本</td></tr><tr><td>&lt;em&gt;</td><td>定义着重文本</td></tr><tr><td>&lt;i&gt;</td><td>定义斜体文本</td></tr><tr><td>&lt;small&gt;</td><td>定义小号文本</td></tr><tr><td>&lt;strong&gt;</td><td>定义加重语气</td></tr><tr><td>&lt;sub&gt;</td><td>定义靠下文本</td></tr><tr><td>&lt;sup&gt;</td><td>定义考上文本</td></tr><tr><td>&lt;ins&gt;</td><td>定义插入字</td></tr><tr><td>&lt;del&gt;</td><td>定义删除字</td></tr></tbody></table></div><p>“计算机输出”标签</p><div class="table-container"><table><thead><tr><th>标签</th><th>描述</th></tr></thead><tbody><tr><td>&lt;code&gt;</td><td>定义计算机代码</td></tr><tr><td>&lt;kbd&gt;</td><td>定义键盘码</td></tr><tr><td>&lt;samp&gt;</td><td>定义计算机代码样本</td></tr><tr><td>&lt;tt&gt;</td><td>定义打印机代码</td></tr><tr><td>&lt;val&gt;</td><td>定义变量</td></tr><tr><td>&lt;pre&gt;</td><td>定义预格式文本</td></tr></tbody></table></div><p>引用、引用和术语定义</p><div class="table-container"><table><thead><tr><th>标签</th><th>描述</th></tr></thead><tbody><tr><td>&lt;abbr&gt;</td><td>定义缩写</td></tr><tr><td>&lt;acronym&gt;</td><td>定义首字母缩写</td></tr><tr><td>&lt;address&gt;</td><td>定义地址</td></tr><tr><td>&lt;bdo&gt;</td><td>定义文字方向</td></tr><tr><td>&lt;blockquote&gt;</td><td>定义长的引用</td></tr><tr><td>&lt;q&gt;</td><td>定义短的引用</td></tr><tr><td>&lt;cite&gt;</td><td>定义引用、引证</td></tr><tr><td>&lt;dfn&gt;</td><td>定义一个定义项目</td></tr></tbody></table></div><h1 id="HTML引用"><a href="#HTML引用" class="headerlink" title="HTML引用"></a>HTML引用</h1><p>浏览器通常自动为引文添加引号。</p><h2 id="短的引用"><a href="#短的引用" class="headerlink" title="短的引用"></a>短的引用</h2><p>在 HTML 中，我们通过&lt;q&gt;标签来进行短的引用。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>他说：<span class="tag">&lt;<span class="name">q</span>&gt;</span>去你妈的花海。<span class="tag">&lt;/<span class="name">q</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="长的引用"><a href="#长的引用" class="headerlink" title="长的引用"></a>长的引用</h2><p>在 HTML 中，我们用&lt;blockquote&gt;进行长的引用。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>以下内容引用自 WWF 的网站：<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">cite</span>=<span class="string">&quot;http://www.worldwildlife.org/who/index.html&quot;</span>&gt;</span></span><br><span class="line">五十年来，WWF 一直致力于保护自然界的未来。</span><br><span class="line">世界领先的环保组织，WWF 工作于 100 个国家，</span><br><span class="line">并得到美国一百二十万会员及全球近五百万会员的支持。</span><br><span class="line"><span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br></pre></td></tr></table></figure><p>在上面的代码中，引用了 WWF 的话，由于文段较长，使用了&lt;blockquote&gt;标签，其中添加 cite 属性以声明引文出处，既可以是文献名称也可以是地址。cite 也可以单独作为元素使用。</p><h2 id="HTML缩略词"><a href="#HTML缩略词" class="headerlink" title="HTML缩略词"></a>HTML缩略词</h2><p>HTML &lt;abbr&gt;元素定义缩写或首字母缩略语。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span> = <span class="string">&quot;United States&quot;</span>&gt;</span>US<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span>的首任总统为华盛顿<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><p>在上面的代码中，浏览页面时只会显示 US，而 US 是 United States 的缩写，便使用了&lt;abbr&gt;元素。</p><h2 id="HTML联系信息"><a href="#HTML联系信息" class="headerlink" title="HTML联系信息"></a>HTML联系信息</h2><p>在 HMTL 中，我们用&lt;address&gt;来定义联系方式或地址。</p><p>此元素通常以斜体显示。大多数浏览器会在此元素前后添加折行。</p><p>实例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">address</span>&gt;</span></span><br><span class="line">Written by Donald Duck.<span class="tag">&lt;<span class="name">br</span>&gt;</span> </span><br><span class="line">Visit us at:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">Example.com<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">Box 564, Disneyland<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">USA</span><br><span class="line"><span class="tag">&lt;/<span class="name">address</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="HTML双向重写"><a href="#HTML双向重写" class="headerlink" title="HTML双向重写"></a>HTML双向重写</h2><p>HTML&lt;bdo&gt;元素定义双流向覆盖（bi-directional override）。</p><p>&lt;bdo&gt;元素用于覆盖当前文本方向：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bdo</span> <span class="attr">dir</span>=<span class="string">&quot;rtl&quot;</span>&gt;</span>这是一段话<span class="tag">&lt;/<span class="name">bdo</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p>如果浏览器支持&lt;bdo&gt;那么上述文字在浏览器中显示的是<q>话段一是这</q>。<br>属性 dir 的值可选rtl(从右往左)或ltr(从左往右)。</p><h1 id="HTML颜色"><a href="#HTML颜色" class="headerlink" title="HTML颜色"></a>HTML颜色</h1><p>HTML 颜色可以通过十六进制表示，也可以通过 RGB 颜色值来表示<br>具体参见<a href = "https://www.ysdaima.com/" target = "_blank">颜色代码表</a>。</p><p>许多 HTML 颜色有自己的颜色名。可参见<a href = "https://www.w3school.com.cn/html/html_colornames.asp" target = "_blank">HTML 颜色名</a>。</p><h1 id="HTML-CSS"><a href="#HTML-CSS" class="headerlink" title="HTML CSS"></a>HTML CSS</h1><p>HTML 的所有样式都可以移出 HTML 文件，移入一个独立的样式表(CSS文件)。</p><h2 id="使用样式"><a href="#使用样式" class="headerlink" title="使用样式"></a>使用样式</h2><p>当浏览器读到一个样式表，它就会按照这个样式表来对文档进行格式化。<br>以下为方法。</p><h3 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h3><p>当样式需要应用到很多页面时，外部样式表无疑时最理想的选择。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure><br>注意写在head里。</p><h3 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h3><p>当个别文件应用样式时，可以使用内部样式表。<br>写法如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-color</span>: red&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>: <span class="number">20px</span>&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p><h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><p>当文件内部分标签需要应用格式时，可以使用内联样式。</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color: red; margin-left: 20px&quot;</span>&gt;</span></span><br><span class="line">This is a paragraph</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><p>该代码给”This is a paragraph”修改了颜色和左外边距。</p>]]></content>
+      
+      
       <categories>
-        <category>教程</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>教程</tag>
-        <tag>笔记</tag>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RE:从零开始的Python学习笔记</title>
-    <url>/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>这里是一个萌新的 Python 学习笔记，在这里，我将从头开始梳理 Python 语法结构与代码。</p>
-<h1 id="Python语法特点"><a href="#Python语法特点" class="headerlink" title="Python语法特点"></a>Python语法特点</h1><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>不同于C语言，Python编程具有强烈的 <mark class="hl-label blue">面向对象</mark> 特性，于class中体现其性质。</p>
-<h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h2><p>Python是一门非常注重 <mark class="hl-label blue">缩进</mark> 的语言，任何语句必须严格按照逻辑缩进，否则出现错误提示。</p>
-<h2 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h2><p>学习任何计算机语言，一定要养成 <mark class="hl-label green">注释</mark> 的好习惯，不单单为了他人的阅读性，更利于自己检查代码。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在python中，使用井号进行单行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">使用三个连续的单引号</span></span><br><span class="line"><span class="string">或双引号进行多行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>相比于Microsoft的Visual Studio Code，更推荐Pycharm进行Python项目的开发。</p>
-<h1 id="初识Python-简单的Python语句"><a href="#初识Python-简单的Python语句" class="headerlink" title="初识Python: 简单的Python语句"></a>初识Python: 简单的Python语句</h1><h2 id="输入-amp-输出-amp-变量"><a href="#输入-amp-输出-amp-变量" class="headerlink" title="输入&amp;输出&amp;变量"></a>输入&amp;输出&amp;变量</h2><p>Python中，输入与输出的代码分别是input与print</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;输出内容&quot;</span>)</span><br><span class="line">a = <span class="built_in">input</span>(<span class="string">&quot;对用户的提示&quot;</span>) <span class="comment">#将用户输入内容，存放于变量a中。</span></span><br></pre></td></tr></table></figure>
-<p>在上面代码的书写中，我们用到了变量a来存放输入内容。</p>
-<p>在python中，变量的使用是不需要提前声明的，所以可以直接使用。</p>
-<mark class="hl-label green">提示</mark> 命名变量时一定要使变量名称有鲜明特点，方便阅读；且Python支持中文变量名(不建议使用)
-
-另外，要注意变量的名字不可与Python中的保留字重名。具体请见下图：
-
-![Python的33个保留字](https://pic.imgdb.cn/item/64c3786d1ddac507cc33bd12.png)
-
-## 数据类型
-
-### 数字型
-
-#### 整数
-
-整数依据进制不同，主要分为十进制、二进制、十六进制、八进制等。
-
-我们最熟悉的莫过于十进制整数。Python中表示十进制的数，只需要输入其所有位数即可。
-
-<mark class="hl-label red">注意</mark> 不可以0开头表示十进制整数。
-
-八进制整数每位由0~7组成，逢8进1。
-
-Python中八进制必须以0o或0O开头。
-
-二进制与十六进制同理，不过在表示十六进制数的时候，前面必须加上0x或0X。
-
-Python中用"int"将数据转换为整数型，且符合“向下取整”原则。如下所示。
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="number">3.99</span>)</span><br><span class="line">   <span class="number">3</span></span><br></pre></td></tr></table></figure>
-<h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><p>浮点数由整数部分与小数部分组成，主要用于表示过小的数字。</p>
-<p>Python中用”float”将数据转换为浮点型。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">float</span>(<span class="number">2</span>)</span><br><span class="line">   <span class="number">2.0</span></span><br></pre></td></tr></table></figure>
-<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>顾名思义，字符串是字符的整体。</p>
-<p>在python中，可以使用’’、””、’’’’’’表示字符串。其中、’’’’’’可以分多行表示。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&#x27;你好世界&#x27;</span></span><br><span class="line">b=<span class="string">&quot;你好世界&quot;</span></span><br><span class="line">c=<span class="string">&#x27;&#x27;&#x27;你好，</span></span><br><span class="line"><span class="string">世界！&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%s\n%s\n%s&quot;</span> % (a,b,c))</span><br></pre></td></tr></table></figure>
-<p>输出:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">你好世界</span><br><span class="line">你好世界</span><br><span class="line">你好，世界！</span><br></pre></td></tr></table></figure>
-<p>我们使用str将数据转换为字符串。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">str</span>(<span class="number">123456</span>)</span><br><span class="line">   <span class="string">&quot;123456&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p>布尔型是表示真或假的数据类型。分别用True和False来表示真与假。</p>
-<p>我们用int将布尔值转换为整数型。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">True</span>)</span><br><span class="line">   <span class="number">1</span></span><br><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">False</span>)</span><br><span class="line">   <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>开摆了，鸽~</p>
-<p>以上写着玩。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【萌新】用Python制作的单词背诵程序</title>
+      <link href="/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/"/>
+      <url>/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<p>最近心血来潮制作了一个关于单词背诵的程序，本文将从构思到代码逐步解读思路。（纯萌新）</p><h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><p>程序可以分为三个结构：主UI界面，背单词界面，读取词库、收藏夹等功能程序。</p><h2 id="主UI界面"><a href="#主UI界面" class="headerlink" title="主UI界面"></a>主UI界面</h2><p>本程序两个UI都使用Python的<em>tkinter库。</em></p><p>主UI有以下互动选项：</p><ul><li>开始</li><li>收藏夹</li><li>历史、进度、选择词库(饼)</li></ul><h2 id="背单词界面"><a href="#背单词界面" class="headerlink" title="背单词界面"></a>背单词界面</h2><p>背单词界面实现了以下功能</p><ul><li>已经记住（刷新）</li><li>展示中文</li><li>加入收藏夹</li></ul><h2 id="功能程序"><a href="#功能程序" class="headerlink" title="功能程序"></a>功能程序</h2><ul><li>读取词库</li><li>文件交互</li></ul><h1 id="代码解读"><a href="#代码解读" class="headerlink" title="代码解读"></a>代码解读</h1><h2 id="读取词库"><a href="#读取词库" class="headerlink" title="读取词库"></a>读取词库</h2><p>首先，本程序所支持的词库格式为.xlsx文件，要与Excel文件进行交互，便用到了，Python的 <em>openpyxl</em> 库。</p><p>要先在cmd或powershell中进行下载。</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure><h3 id="按照格式整理词库"><a href="#按照格式整理词库" class="headerlink" title="按照格式整理词库"></a>按照格式整理词库</h3><p><img src="https://pic.imgdb.cn/item/64d0d4e11ddac507cc73fe1a.png" alt="标准格式"></p><p>如图所示，即A列为外语单词，B列为汉语语义；且由于选择词库还在饼，词库文件名必须为词库.xlsx，工作表名必须为 <em>Sheet1。</em></p><p>在网络中获取一个外语词库格式可能非常混乱，而通常词库单词多，人工排版极为麻烦，我在这里用到了office Excel的分列功能。</p><p><img src="https://pic.imgdb.cn/item/64d0d6651ddac507cc776d86.png" alt="分列"></p><p>分列功能有<em>分割符号</em>和<em>固定宽度</em>两个方式，一般推荐分割符号，毕竟每个单词长短不同，所选的符号可以是原有的分号或者方括号、大括号、斜杠等原有的、具有代表性的符号。</p><h3 id="Python文件读取、处理词库"><a href="#Python文件读取、处理词库" class="headerlink" title="Python文件读取、处理词库"></a>Python文件读取、处理词库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ ==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> openpyxl</span><br><span class="line">    workbook = openpyxl.load_workbook(<span class="string">&quot;词库.xlsx&quot;</span>) <span class="comment">#导入excel</span></span><br><span class="line">    worksheet = workbook[<span class="string">&#x27;Sheet1&#x27;</span>] <span class="comment">#选择工作表</span></span><br><span class="line">    xl_A = [] <span class="comment">#存储A列数据的列表</span></span><br><span class="line">    xl_B = [] <span class="comment">#存储B列数据的列表</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">1</span>, max_col=<span class="number">1</span>): <span class="comment">#把A列数据存到列表中，与row相关为行，col为列</span></span><br><span class="line">        xl_A.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> a])</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">2</span>, max_col=<span class="number">2</span>): <span class="comment">#把B列数据存到列表中</span></span><br><span class="line">        xl_B.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> b])</span><br></pre></td></tr></table></figure><p>此段代码用openpyxl库，实现了确定文档路径、工作表，并遍历行列，将单词存储于xl_A列表中，将汉语意思存储于xl_B中。</p><p>本来在构思中打算用字典存储数据，但考虑到相同单词对应的汉语下标相同，所以舍弃这一想法。</p><h3 id="使用Tkinter制作程序UI"><a href="#使用Tkinter制作程序UI" class="headerlink" title="使用Tkinter制作程序UI"></a>使用Tkinter制作程序UI</h3><p>本程序采用最简单的pyUI框架（</p>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 程序 </category>
+          
       </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【萌新】用Python制作的单词背诵程序</title>
-    <url>/2023/08/07/%5B%E8%90%8C%E6%96%B0%5D%E7%94%A8Python%E5%88%B6%E4%BD%9C%E7%9A%84%E5%8D%95%E8%AF%8D%E8%83%8C%E8%AF%B5%E7%A8%8B%E5%BA%8F/</url>
-    <content><![CDATA[<p>最近心血来潮制作了一个关于单词背诵的程序，本文将从构思到代码逐步解读思路。（纯萌新）</p>
-<h1 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h1><p>程序可以分为三个结构：主UI界面，背单词界面，读取词库、收藏夹等功能程序。</p>
-<h2 id="主UI界面"><a href="#主UI界面" class="headerlink" title="主UI界面"></a>主UI界面</h2><p>本程序两个UI都使用Python的<em>tkinter库。</em></p>
-<p>主UI有以下互动选项：</p>
-<ul>
-<li>开始</li>
-<li>收藏夹</li>
-<li>历史、进度、选择词库(饼)</li>
-</ul>
-<h2 id="背单词界面"><a href="#背单词界面" class="headerlink" title="背单词界面"></a>背单词界面</h2><p>背单词界面实现了以下功能</p>
-<ul>
-<li>已经记住（刷新）</li>
-<li>展示中文</li>
-<li>加入收藏夹</li>
-</ul>
-<h2 id="功能程序"><a href="#功能程序" class="headerlink" title="功能程序"></a>功能程序</h2><ul>
-<li>读取词库</li>
-<li>文件交互</li>
-</ul>
-<h1 id="代码解读"><a href="#代码解读" class="headerlink" title="代码解读"></a>代码解读</h1><h2 id="读取词库"><a href="#读取词库" class="headerlink" title="读取词库"></a>读取词库</h2><p>首先，本程序所支持的词库格式为.xlsx文件，要与Excel文件进行交互，便用到了，Python的 <em>openpyxl</em> 库。</p>
-<p>要先在cmd或powershell中进行下载。</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure>
-<h3 id="按照格式整理词库"><a href="#按照格式整理词库" class="headerlink" title="按照格式整理词库"></a>按照格式整理词库</h3><p><img src="https://pic.imgdb.cn/item/64d0d4e11ddac507cc73fe1a.png" alt="标准格式"></p>
-<p>如图所示，即A列为外语单词，B列为汉语语义；且由于选择词库还在饼，词库文件名必须为词库.xlsx，工作表名必须为 <em>Sheet1。</em></p>
-<p>在网络中获取一个外语词库格式可能非常混乱，而通常词库单词多，人工排版极为麻烦，我在这里用到了office Excel的分列功能。</p>
-<p><img src="https://pic.imgdb.cn/item/64d0d6651ddac507cc776d86.png" alt="分列"></p>
-<p>分列功能有<em>分割符号</em>和<em>固定宽度</em>两个方式，一般推荐分割符号，毕竟每个单词长短不同，所选的符号可以是原有的分号或者方括号、大括号、斜杠等原有的、具有代表性的符号。</p>
-<h3 id="Python文件读取、处理词库"><a href="#Python文件读取、处理词库" class="headerlink" title="Python文件读取、处理词库"></a>Python文件读取、处理词库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ ==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> openpyxl</span><br><span class="line">    workbook = openpyxl.load_workbook(<span class="string">&quot;词库.xlsx&quot;</span>) <span class="comment">#导入excel</span></span><br><span class="line">    worksheet = workbook[<span class="string">&#x27;Sheet1&#x27;</span>] <span class="comment">#选择工作表</span></span><br><span class="line">    xl_A = [] <span class="comment">#存储A列数据的列表</span></span><br><span class="line">    xl_B = [] <span class="comment">#存储B列数据的列表</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">1</span>, max_col=<span class="number">1</span>): <span class="comment">#把A列数据存到列表中，与row相关为行，col为列</span></span><br><span class="line">        xl_A.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> a])</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> worksheet.iter_cols(min_row=<span class="number">1</span>, max_row=worksheet.max_row, min_col=<span class="number">2</span>, max_col=<span class="number">2</span>): <span class="comment">#把B列数据存到列表中</span></span><br><span class="line">        xl_B.extend([cell.value <span class="keyword">for</span> cell <span class="keyword">in</span> b])</span><br></pre></td></tr></table></figure>
-<p>此段代码用openpyxl库，实现了确定文档路径、工作表，并遍历行列，将单词存储于xl_A列表中，将汉语意思存储于xl_B中。</p>
-<p>本来在构思中打算用字典存储数据，但考虑到相同单词对应的汉语下标相同，所以舍弃这一想法。</p>
-<h3 id="使用Tkinter制作程序UI"><a href="#使用Tkinter制作程序UI" class="headerlink" title="使用Tkinter制作程序UI"></a>使用Tkinter制作程序UI</h3><p>本程序采用最简单的pyUI框架（</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>RE:从零开始的Python学习笔记</title>
+      <link href="/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>/2023/07/28/RE%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<p>这里是一个萌新的 Python 学习笔记，在这里，我将从头开始梳理 Python 语法结构与代码。</p><h1 id="Python语法特点"><a href="#Python语法特点" class="headerlink" title="Python语法特点"></a>Python语法特点</h1><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>不同于C语言，Python编程具有强烈的 <mark class="hl-label blue">面向对象</mark> 特性，于class中体现其性质。</p><h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h2><p>Python是一门非常注重 <mark class="hl-label blue">缩进</mark> 的语言，任何语句必须严格按照逻辑缩进，否则出现错误提示。</p><h2 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h2><p>学习任何计算机语言，一定要养成 <mark class="hl-label green">注释</mark> 的好习惯，不单单为了他人的阅读性，更利于自己检查代码。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在python中，使用井号进行单行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">使用三个连续的单引号</span></span><br><span class="line"><span class="string">或双引号进行多行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>相比于Microsoft的Visual Studio Code，更推荐Pycharm进行Python项目的开发。</p><h1 id="初识Python-简单的Python语句"><a href="#初识Python-简单的Python语句" class="headerlink" title="初识Python: 简单的Python语句"></a>初识Python: 简单的Python语句</h1><h2 id="输入-amp-输出-amp-变量"><a href="#输入-amp-输出-amp-变量" class="headerlink" title="输入&amp;输出&amp;变量"></a>输入&amp;输出&amp;变量</h2><p>Python中，输入与输出的代码分别是input与print</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;输出内容&quot;</span>)</span><br><span class="line">a = <span class="built_in">input</span>(<span class="string">&quot;对用户的提示&quot;</span>) <span class="comment">#将用户输入内容，存放于变量a中。</span></span><br></pre></td></tr></table></figure><p>在上面代码的书写中，我们用到了变量a来存放输入内容。</p><p>在python中，变量的使用是不需要提前声明的，所以可以直接使用。</p><mark class="hl-label green">提示</mark> 命名变量时一定要使变量名称有鲜明特点，方便阅读；且Python支持中文变量名(不建议使用)另外，要注意变量的名字不可与Python中的保留字重名。具体请见下图：![Python的33个保留字](https://pic.imgdb.cn/item/64c3786d1ddac507cc33bd12.png)## 数据类型### 数字型#### 整数整数依据进制不同，主要分为十进制、二进制、十六进制、八进制等。我们最熟悉的莫过于十进制整数。Python中表示十进制的数，只需要输入其所有位数即可。<mark class="hl-label red">注意</mark> 不可以0开头表示十进制整数。八进制整数每位由0~7组成，逢8进1。Python中八进制必须以0o或0O开头。二进制与十六进制同理，不过在表示十六进制数的时候，前面必须加上0x或0X。Python中用"int"将数据转换为整数型，且符合“向下取整”原则。如下所示。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="number">3.99</span>)</span><br><span class="line">   <span class="number">3</span></span><br></pre></td></tr></table></figure><h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><p>浮点数由整数部分与小数部分组成，主要用于表示过小的数字。</p><p>Python中用”float”将数据转换为浮点型。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">float</span>(<span class="number">2</span>)</span><br><span class="line">   <span class="number">2.0</span></span><br></pre></td></tr></table></figure><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>顾名思义，字符串是字符的整体。</p><p>在python中，可以使用’’、””、’’’’’’表示字符串。其中、’’’’’’可以分多行表示。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&#x27;你好世界&#x27;</span></span><br><span class="line">b=<span class="string">&quot;你好世界&quot;</span></span><br><span class="line">c=<span class="string">&#x27;&#x27;&#x27;你好，</span></span><br><span class="line"><span class="string">世界！&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%s\n%s\n%s&quot;</span> % (a,b,c))</span><br></pre></td></tr></table></figure><p>输出:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">你好世界</span><br><span class="line">你好世界</span><br><span class="line">你好，世界！</span><br></pre></td></tr></table></figure><p>我们使用str将数据转换为字符串。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">str</span>(<span class="number">123456</span>)</span><br><span class="line">   <span class="string">&quot;123456&quot;</span></span><br></pre></td></tr></table></figure><h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p>布尔型是表示真或假的数据类型。分别用True和False来表示真与假。</p><p>我们用int将布尔值转换为整数型。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">True</span>)</span><br><span class="line">   <span class="number">1</span></span><br><span class="line">&gt;&gt;&gt;<span class="built_in">int</span>(<span class="literal">False</span>)</span><br><span class="line">   <span class="number">0</span></span><br></pre></td></tr></table></figure><p>开摆了，鸽~</p><p>以上写着玩。</p>]]></content>
+      
+      
       <categories>
-        <category>程序</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>小白的前端笔记HTML</title>
-    <url>/2023/08/27/%E5%B0%8F%E7%99%BD%E7%9A%84%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="HTML简介"><a href="#HTML简介" class="headerlink" title="HTML简介"></a>HTML简介</h1><p>HTML 是<mark class="hl-label blue">超文本标记语言</mark> 。它不是编程语言，而是标记语言。Html用标记标签来描述网页。</p>
-<p><em>超文本是一种<u>组织信息</u>的方式，它通过超级链接方法将文本中的文字、图表与其他信息媒体相<u>关联</u>。这些相互关联的信息媒体可能在同一文本中，也可能是其他文件，或是地理位置相距遥远的某台计算机上的文件。这种组织信息方式将分布在不同位置的信息资源用随机方式进行连接，为人们查找，检索信息提供方便。</em></p>
-<h2 id="标记标签"><a href="#标记标签" class="headerlink" title="标记标签"></a>标记标签</h2><ul>
-<li>HTML 标签由&lt;尖括号&gt;包围。</li>
-<li>HTML 标签通常<u>成对出现</u>。</li>
-<li>标签对中的第一个标签是<u>开始标签</u>，第二个标签是<u>结束标签</u>。</li>
-<li>开始和结束标签也被称为开放标签和闭合标签。</li>
-</ul>
-<h2 id="HTML与网页"><a href="#HTML与网页" class="headerlink" title="HTML与网页"></a>HTML与网页</h2><p>.html文件即为一个网页。</p>
-<ul>
-<li>HTML 文档描述网页。</li>
-<li>HTML 文档包含 HTML 标签和纯文本。</li>
-<li>HTML 文档也被称为网页。</li>
-</ul>
-<p>Web 浏览器的作用是读取 HTML 文档，并以网页的形式显示出它们。浏览器不会显示 HTML 标签，而是使用标签来解释页面的内容。</p>
-<h1 id="我的第一个HTML程序"><a href="#我的第一个HTML程序" class="headerlink" title="我的第一个HTML程序"></a>我的第一个HTML程序</h1><p>1、启动一个可以编辑HTML文件的编辑器，可以是notepad等等。</p>
-<p>2、在编辑器中输入以下代码:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>这是段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>其中，我们使用<!--内容-->来进行代码注释，在一些专业编辑器中，可以通过ctrl+/来快捷注释。</p>
-<p>3、保存文件，在保存文件时，文件后缀既可以是.htm，也可以是.html。</p>
-<p>4、运行文件，使用浏览器运行即可。</p>
-<h1 id="HTML基本标签-标题、段落、链接、图像"><a href="#HTML基本标签-标题、段落、链接、图像" class="headerlink" title="HTML基本标签-标题、段落、链接、图像"></a>HTML基本标签-标题、段落、链接、图像</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>HTML的标题标签为&lt;h1&gt;&lt;/h1&gt;，其中的数字代表标题等级，最大为1级，最小为6级。</p>
-<p>实例：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>一级标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>二级标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>三级标题<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>注意：HTML 的标题标签仅用于创建标题，切勿为加大字体而使用！ </li>
-</ul>
-<hr />
-
-<p>补充一句，在 HTML 中分割线标签为&lt;hr&gt;，上方的分割线即为效果。</p>
-<p>使用方法：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>第一段话<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>第二段话<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h2><p>HTML的段落标签为&lt;p&gt;&lt;/p&gt;，前后标签中间直接写文字，不需要加引号。</p>
-<p>实例：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>注：浏览器会自动地在段落的前后添加空行。</li>
-<li>提示：不要用&lt;p&gt;&lt;/p&gt;代替&lt;br /&gt;来空行。如果您希望在不产生一个新段落的情况下进行换行（新行），也使用&lt;br /&gt;标签。</li>
-</ul>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>HTML的链接标签为&lt;a href=””&gt;&lt;/a&gt;，href=后的引号中填写链接地址，两个标签中间的文字是链接文本，即显示在页面上的文字。</p>
-<p>实例：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.baidu.com/&quot;</span>&gt;</span>百度官网<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>HTML的图片标签为&lt;img&gt;。图片名称、尺寸等通过属性来定义。</p>
-<p>实例：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;图片地址&quot;</span> <span class="attr">width</span>=<span class="string">&quot;50&quot;</span> <span class="attr">height</span>=<span class="string">&quot;50&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="HTML元素"><a href="#HTML元素" class="headerlink" title="HTML元素"></a>HTML元素</h1><h2 id="HTML元素简介"><a href="#HTML元素简介" class="headerlink" title="HTML元素简介"></a>HTML元素简介</h2><p>HTML 文档是由 HTML 元素定义的。</p>
-<p>HTML元素指的是从开始标签到结束标签之间所有的代码。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>开始标签</th>
-<th>元素内容</th>
-<th>结束标签</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt;p&gt;</td>
-<td>Hello</td>
-<td>&lt;/p&gt;</td>
-</tr>
-<tr>
-<td>&lt;a href = “www.baidu.com”&gt;</td>
-<td>百度官网</td>
-<td>&lt;/a&gt;</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>有些HTML元素可以具有空内容，大多数HTML元素可以具有属性。</li>
-</ul>
-<h2 id="HTML元素的嵌套"><a href="#HTML元素的嵌套" class="headerlink" title="HTML元素的嵌套"></a>HTML元素的嵌套</h2><p>大多数 HTML 元素可以嵌套（可以包含其他 HTML 元素）。</p>
-<p>HTML 文档由嵌套的 HTML 元素构成。</p>
-<p>实例：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="实例解释"><a href="#实例解释" class="headerlink" title="实例解释"></a>实例解释</h2><p>在上面的代码中，我们看到了html,body,p这三个元素。</p>
-<h3 id="lt-p-gt-元素"><a href="#lt-p-gt-元素" class="headerlink" title="&lt;p&gt;元素"></a>&lt;p&gt;元素</h3><p>在之前写到过。</p>
-<h3 id="lt-html-gt-元素"><a href="#lt-html-gt-元素" class="headerlink" title="&lt;html&gt;元素"></a>&lt;html&gt;元素</h3><p>&lt;html&gt;元素定义了整个 HTML 文档。<br>在上面的代码中&lt;html&gt;元素的内容是另一个 HTML 元素(&lt;body&gt;元素)。</p>
-<h3 id="lt-body-gt-元素"><a href="#lt-body-gt-元素" class="headerlink" title="&lt;body&gt;元素"></a>&lt;body&gt;元素</h3><p>&lt;body&gt;元素定义了 HTML 文档的主体。<br>与之相对的&lt;head&gt;元素用于定义 HTML 文档的头部。</p>
-<h2 id="空的HTML元素"><a href="#空的HTML元素" class="headerlink" title="空的HTML元素"></a>空的HTML元素</h2><p>没有内容的 HTML 元素被称为空元素。空元素是在开始标签中关闭的。<br>&lt;br&gt;就是没有关闭标签的空元素（&lt;br&gt;标签定义换行）。</p>
-<p>在开始标签中添加斜杠，比如&lt;br /&gt;是关闭空元素的正确方法，HTML、XHTML 和 XML 都接受这种方式。</p>
-<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
-<li>建议在开始标签中加/来关闭空元素。</li>
-<li>建议使用小写标签。</li>
-<li>不要忘记结束标签。</li>
-</ul>
-<h1 id="HTML属性"><a href="#HTML属性" class="headerlink" title="HTML属性"></a>HTML属性</h1><p>HTML 标签可以具有属性，属性为 HTML 标签提供更多信息。<br>属性一般在开始标签中规定。<br>属性出现的形式为 name = “val”</p>
-<p>实例：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span> = <span class="string">&quot;center&quot;</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>其中，我们为一级标题标签添加了 align 属性，用于规定内容位置。</p>
-<p>提示：</p>
-<ul>
-<li>建议小写属性。</li>
-<li>始终为属性值加引号。</li>
-</ul>
-<p>更多标签及其属性详见<a href = "https://www.w3school.com.cn/tags/index.asp">此处</a>。</p>
-<h1 id="HTML样式"><a href="#HTML样式" class="headerlink" title="HTML样式"></a>HTML样式</h1><h2 id="HTML的style属性"><a href="#HTML的style属性" class="headerlink" title="HTML的style属性"></a>HTML的style属性</h2><p>style 属性用于改变 HTML 元素的样式。<br>它提供了一种改变所有 HTML 元素的样式的通用方法。<br>通过 HTML 样式，能够通过使用 style 属性直接将样式添加到 HTML 元素，或者间接地在独立的样式表中（CSS 文件）进行定义。</p>
-<h2 id="不建议使用的标签和属性"><a href="#不建议使用的标签和属性" class="headerlink" title="不建议使用的标签和属性"></a>不建议使用的标签和属性</h2><p>对于以下这些标签和属性，请使用样式代替。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>标签</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt;center&gt;</td>
-<td>定义居中的内容</td>
-</tr>
-<tr>
-<td>&lt;font&gt;和&lt;basefont&gt;</td>
-<td>定义字体</td>
-</tr>
-<tr>
-<td>&lt;s&gt;和&lt;strike&gt;</td>
-<td>定义删除线文本</td>
-</tr>
-<tr>
-<td>&lt;u&gt;</td>
-<td>定义下划线文本</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>align</td>
-<td>定义文本对齐方式</td>
-</tr>
-<tr>
-<td>bgcolor</td>
-<td>定义背景颜色</td>
-</tr>
-<tr>
-<td>color</td>
-<td>定义文本颜色</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="HTML样式实例"><a href="#HTML样式实例" class="headerlink" title="HTML样式实例"></a>HTML样式实例</h2><h3 id="背景颜色"><a href="#背景颜色" class="headerlink" title="背景颜色"></a>背景颜色</h3><p>background-color 属性为元素定义了背景颜色：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">&quot;background-color:yellow&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">style</span>=<span class="string">&quot;background-color:red&quot;</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;background-color:green&quot;</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>改代码修改了body标签的样式，也就是整个页面的背景颜色。</p>
-<h3 id="字体、颜色、尺寸"><a href="#字体、颜色、尺寸" class="headerlink" title="字体、颜色、尺寸"></a>字体、颜色、尺寸</h3><p>font-family、color 以及 font-size 属性分别定义元素中文本的字体系列、颜色和字体尺寸：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;font-family:verdana&quot;</span>&gt;</span>A heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;font-family:arial;color:red;font-size:20px;&quot;</span>&gt;</span>A paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="文本对齐"><a href="#文本对齐" class="headerlink" title="文本对齐"></a>文本对齐</h3><p>text-align 属性规定了元素中文本的水平对齐方式：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;text-align:center&quot;</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The heading above is aligned to the center of this page.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 笔记 </tag>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World - Hexo搭建个人博客网站教程</title>
+      <link href="/2023/07/27/Hello%20World%20-%20Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E6%95%99%E7%A8%8B/"/>
+      <url>/2023/07/27/Hello%20World%20-%20Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>欢迎来到7Q的博客！本站基于Hexo框架搭建，访问 <a href="https://hexo.io/">https://hexo.io/</a> 搭建同款网站^^。以下简单写一下搭建过程。</p><h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><h2 id="下载Node-js"><a href="#下载Node-js" class="headerlink" title="下载Node.js"></a>下载Node.js</h2><p>点击<a href="https://nodejs.cn/download/">这里</a> ，根据自己系统下载即可。</p><h2 id="下载Git"><a href="#下载Git" class="headerlink" title="下载Git"></a>下载Git</h2><p><a href="https://git-scm.com/download">点我</a> 即可下载，下载时无脑下一步。</p><p>顺便下一个能编辑.yml文件的编辑器(如notepad++,vscode)</p><h2 id="下载Hexo"><a href="#下载Hexo" class="headerlink" title="下载Hexo"></a>下载Hexo</h2><p>进入Git Bash，依次输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure><h1 id="将网站部署至Github"><a href="#将网站部署至Github" class="headerlink" title="将网站部署至Github"></a>将网站部署至Github</h1><h2 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h2><p>首先注册一个Github账号。</p><p>然后在Git bash中输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的Github用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure><h2 id="生成-amp-查看SSH密钥"><a href="#生成-amp-查看SSH密钥" class="headerlink" title="生成&amp;查看SSH密钥"></a>生成&amp;查看SSH密钥</h2><p>输入以下内容：(过程中需要点击三次回车键)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的Github邮箱&quot;</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub <span class="comment">#查看密钥</span></span><br></pre></td></tr></table></figure><h2 id="将网站上传至Github"><a href="#将网站上传至Github" class="headerlink" title="将网站上传至Github"></a>将网站上传至Github</h2><h3 id="上传SSH"><a href="#上传SSH" class="headerlink" title="上传SSH"></a>上传SSH</h3><p>进入Github，点击右上角你的头像，找到 <mark class="hl-label blue">Settings</mark> 。</p><p>在左侧找到 <mark class="hl-label blue">SSH and GPG keys</mark> 。</p><p>如下图所示填写key。</p><p><img src="https://pic.imgdb.cn/item/64c25ed71ddac507cc762ac3.png" alt="pic"></p><p>最后在git bash窗口中输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure><p>若出现”successfully”等字样，代表创建成功。</p><h3 id="创建一个库"><a href="#创建一个库" class="headerlink" title="创建一个库"></a>创建一个库</h3><p>再进入Github首页，点击 <mark class="hl-label green">New Repository</mark>  或者 <mark class="hl-label green">new</mark>  。</p><p><img src="https://pic.imgdb.cn/item/64c260711ddac507cc7a25b7.png" alt="pic"></p><p>按照上图创建一个库。</p><h3 id="上传与部署"><a href="#上传与部署" class="headerlink" title="上传与部署"></a>上传与部署</h3><p>在博客根目录的 <mark class="hl-label blue">_config.yml</mark>  文件中搜索 <mark class="hl-label blue">deploy</mark>  。</p><p>并输入：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure><p>最后在根目录git bash窗口中输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure><h1 id="验收成果"><a href="#验收成果" class="headerlink" title="验收成果"></a>验收成果</h1><p>进入 <mark class="hl-label blue">你的用户名.github.io</mark>  若进入网站则成功！</p><p>该过程可能需要几分钟，不久后刷新即可。</p><h1 id="附录-Hexo常用命令"><a href="#附录-Hexo常用命令" class="headerlink" title="附录 - Hexo常用命令"></a>附录 - Hexo常用命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo s  <span class="comment">#启动网站</span></span><br><span class="line">hexo g  <span class="comment">#生成网页</span></span><br><span class="line">hexo d  <span class="comment">#部署网站</span></span><br><span class="line">hexo clean  <span class="comment">#清除缓存</span></span><br><span class="line">hexo new page  <span class="comment">#新建网页</span></span><br></pre></td></tr></table></figure><p>更多内容请参考<a href="https://hexo.io/zh-cn/docs/index.html">Hexo官网文档</a>。</p>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 教程 </category>
+          
       </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> 笔记 </tag>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
